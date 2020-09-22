@@ -1,2 +1,8 @@
 #!/usr/bin/env ruby
-puts 'Hello world !'
+puts 'Enter player 1 name'
+player1 = gets.chomp
+puts 'Enter player 2 name'
+player2 = gets.chomp
+puts 'Please select X or O'
+player1_choice = gets.chomp
+player2_choice = player1_choice == 'X' ? 'O' : 'X'
