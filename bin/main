@@ -1,9 +1,28 @@
 #!/usr/bin/env ruby
 require './environment.rb'
-require 'players'
+require 'player'
 require 'board'
 require 'game'
-# puts 'Welcome to the Tic-Tac_Toe game!'
+
+player1 = Player.new
+player2 = Player.new
+
+puts 'Welcome to the Tic-Tac_Toe game!'
+puts 'Player 1 please enter your name :'
+player1.name = gets.chomp
+puts 'Player 2 please enter your name :'
+player2.name = gets.chomp
+puts "#{player1.name} please choose your token :"
+player1.token = gets.chomp
+player2.token = player1.token == 'O' ? 'X' : 'O'
+
+
+
+
+
+
+
+
 # Get Player1 name
 # puts 'Enter player 1 name'
 # player1 = gets.chomp
