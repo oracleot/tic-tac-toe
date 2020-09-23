@@ -1,14 +1,14 @@
 # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
-# This handles the updating and display of board
+
 class Board
   attr_accessor :board
-  @@game_tokens = 0
   def initialize
     @board = [
       [' ', ' ', ' '],
       [' ', ' ', ' '],
       [' ', ' ', ' ']
     ]
+    @tokens = 0
   end
 
   def display
@@ -29,12 +29,9 @@ class Board
     @board[2][0] = token if val == 7
     @board[2][1] = token if val == 8
     @board[2][2] = token if val == 9
-    @@game_tokens +=1
+    @tokens += 1
     display
   end
-
-  def get_game_tokens
-  @@game_tokens
-  end
 end
+
 # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity

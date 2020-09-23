@@ -52,19 +52,16 @@ puts "\nLet the game begin!!!"
 
 puts game_board.display
 
-game_status = true
+loop do
+  puts "#{player1.name} please make your move :"
+  position = validate_position
+  puts game_board.update_position(position, player1.token)
 
-while true do
-puts "#{player1.name} please make your move :"
-position = validate_position
-puts game_board.update_position(position, player1.token)
+  puts "#{player2.name} please make your move :"
+  position = validate_position
+  puts game_board.update_position(position, player2.token)
 
-puts "#{player2.name} please make your move :"
-position = validate_position
-puts game_board.update_position(position, player2.token)
-
-
-break if  game_board.get_game_tokens == 9
+  break if game_board.tokens == 9
 end
 
 # Start a loop to check if game is on, then perform the following steps
