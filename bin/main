@@ -2,7 +2,6 @@
 require './environment.rb'
 require 'player'
 require 'board'
-require 'game'
 
 player1 = Player.new
 player2 = Player.new
@@ -56,32 +55,21 @@ loop do
   puts "#{player1.name} please make your move :"
   position = validate_position
   puts game_board.update_position(position, player1.token)
+  if game_board.test_win(player1.token)
+    puts "#{player1.name} WIN"
+    break
+  end
+
+  if game_board.tokens == 9
+    puts 'This game is a draw'
+    break
+  end
 
   puts "#{player2.name} please make your move :"
   position = validate_position
   puts game_board.update_position(position, player2.token)
-
-  break if game_board.tokens == 9
+  if game_board.test_win(player2.token)
+    puts "#{player2.name} WIN"
+    break
+  end
 end
-
-# Start a loop to check if game is on, then perform the following steps
-# game_on = true
-# while game_on
-# First, display an empty board to show players available positions
-# Ask Player1 for first move position
-# puts "#{player1} please indicate your desired move position"
-# Gets the position player has chosen and removes it from the possible positions for the next player
-# player1_position = gets.chomp.to_i
-# Checks if position is valid and updates the available positions
-# Display the game board with the updated position for Player2
-# Repeats same process for Player2
-# If any of the two players meet the 'WIN condition' (horizontal, vertical or diagonal alignment), display WIN
-# if WIN or DRAW
-# if WIN
-# Print the winning player
-# else
-# Print draw
-# end
-# game_on = false
-# end
-# end
