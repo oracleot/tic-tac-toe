@@ -52,6 +52,9 @@ puts "\nLet the game begin!!!"
 
 puts game_board.display
 
+game_status = true
+
+while true do
 puts "#{player1.name} please make your move :"
 position = validate_position
 puts game_board.update_position(position, player1.token)
@@ -60,19 +63,10 @@ puts "#{player2.name} please make your move :"
 position = validate_position
 puts game_board.update_position(position, player2.token)
 
-# Get Player1 name
-# puts 'Enter player 1 name'
-# player1 = gets.chomp
-# Get Player2 name
-# puts 'Enter player 2 name'
-# player2 = gets.chomp
-# Tell Player1 to choose
-# puts 'Please select X or O'
-# player1_choice = gets.chomp
-# Assign the available choice to Player2
-# player2_choice = player1_choice == 'X' ? 'O' : 'X'
-# Create a variable for all available positions
-# available_positions = (1..9)
+
+break if  game_board.get_game_tokens == 9
+end
+
 # Start a loop to check if game is on, then perform the following steps
 # game_on = true
 # while game_on
