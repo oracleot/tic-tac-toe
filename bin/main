@@ -1,20 +1,38 @@
 #!/usr/bin/env ruby
 require './environment.rb'
 require 'player'
-require 'board'
-require 'game'
+# require 'board'
+# require 'game'
 
 player1 = Player.new
 player2 = Player.new
 
 puts 'Welcome to the Tic-Tac_Toe game!'
-puts 'Player 1 please enter your name :'
-player1.name = gets.chomp
-puts 'Player 2 please enter your name :'
-player2.name = gets.chomp
-puts "#{player1.name} please choose your token :"
-player1.token = gets.chomp
-player2.token = player1.token == 'O' ? 'X' : 'O'
+
+print 'Player 1, please enter your name: '
+player1.name = gets.chomp.capitalize
+print 'Player 2, please provide your name: '
+player2.name = gets.chomp.capitalize
+player2.name = "#{player2.name}2" if player2.name == player1.name
+puts "Welcome #{player1.name} and #{player2.name}"
+
+puts "#{player1.name} please choose a token [ X or O ]"
+
+token_invalid = true
+while token_invalid do
+  player1.token = gets.chomp.upcase
+  if player1.token == 'X' or player1.token == 'O'
+    token_invalid = false
+  else
+    puts 'Token should be X or O'
+  end
+  break if token_invalid == false
+end
+
+player2.token = player1.token == 'X' ? 'O' : 'X'
+
+puts "Great! #{player1.name} takes #{player1.token} and #{player2.name} takes #{player2.token}"
+puts "\nLet the game begin!!!"
 
 
 
