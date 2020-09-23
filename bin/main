@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
-puts 'Welcome to the Tic-Tac_Toe game!'
+require './environment.rb'
+require 'players'
+require 'board'
+require 'game'
+# puts 'Welcome to the Tic-Tac_Toe game!'
 # Get Player1 name
 # puts 'Enter player 1 name'
 # player1 = gets.chomp
