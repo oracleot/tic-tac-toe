@@ -47,9 +47,11 @@ end
 
 def play_game(game_board, player1, player2)
   get_input = proc { gets.chomp }
+  puts_provide = proc { puts 'Provide a valid position between 1 and 9 and not taken' }
+  puts_error = proc { puts 'Provide a valid integer' }
   loop do
     puts "#{player1.name} please make your move :"
-    position = game_board.validate_position(game_board, &get_input)
+    position = game_board.validate_position(game_board, get_input, puts_provide, puts_error)
     puts game_board.update_position(position, player1.token)
     if game_board.test_win(player1.token)
       puts "#{player1.name} WIN"
@@ -62,7 +64,7 @@ def play_game(game_board, player1, player2)
     end
 
     puts "#{player2.name} please make your move :"
-    position = game_board.validate_position(game_board, &get_input)
+    position = game_board.validate_position(game_board, get_input, puts_provide, puts_error)
     puts game_board.update_position(position, player2.token)
     if game_board.test_win(player2.token)
       puts "#{player2.name} WIN"
