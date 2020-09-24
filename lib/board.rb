@@ -20,6 +20,19 @@ class Board
     "
   end
 
+  def get_position(val)
+    current_position = @board[0][0] if val == 1
+    current_position = @board[0][1] if val == 2
+    current_position = @board[0][2] if val == 3
+    current_position = @board[1][0] if val == 4
+    current_position = @board[1][1] if val == 5
+    current_position = @board[1][2] if val == 6
+    current_position = @board[2][0] if val == 7
+    current_position = @board[2][1] if val == 8
+    current_position = @board[2][2] if val == 9
+    current_position
+  end
+
   def update_position(val, token)
     @board[0][0] = token if val == 1
     @board[0][1] = token if val == 2

@@ -7,34 +7,34 @@ player1 = Player.new
 player2 = Player.new
 game_board = Board.new
 
-def validate_position
+def validate_position(my_board)
   validated = false
   until validated
-    puts 'Provide a valid position between 1 and 9'
+    puts 'Provide a valid position between 1 and 9 and not taken'
     begin
       pos = Integer(gets.chomp)
     rescue StandardError
       puts 'Provide a valid integer'
       retry
     end
-    validated = true if pos < 10
+    validated = true if pos < 10 && my_board.get_position(pos) == ' '
   end
   pos
 end
 
-def validate_name(num)
+def validate_name(_num)
   validated = false
   until validated
     name = gets.chomp
-    validated = (name.length > 2) ? true : (puts "Please enter a valid name: ")
+    validated = name.length > 2 ? true : (puts 'Please enter a valid name: ')
   end
   name.capitalize
 end
 
 puts 'Welcome to the Tic-Tac_Toe game!'
-puts "Player 1 please enter name : "
+puts 'Player 1 please enter name : '
 player1.name = validate_name(1)
-puts "Player 2 please enter name : "
+puts 'Player 2 please enter name : '
 player2.name = validate_name(2)
 player2.name = "#{player2.name}2" if player2.name == player1.name
 puts "Welcome #{player1.name} and #{player2.name}"
@@ -61,7 +61,7 @@ puts game_board.display
 
 loop do
   puts "#{player1.name} please make your move :"
-  position = validate_position
+  position = validate_position(game_board)
   puts game_board.update_position(position, player1.token)
   if game_board.test_win(player1.token)
     puts "#{player1.name} WIN"
@@ -74,7 +74,7 @@ loop do
   end
 
   puts "#{player2.name} please make your move :"
-  position = validate_position
+  position = validate_position(game_board)
   puts game_board.update_position(position, player2.token)
   if game_board.test_win(player2.token)
     puts "#{player2.name} WIN"
