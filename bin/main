@@ -1,26 +1,13 @@
 #!/usr/bin/env ruby
-require './environment.rb'
-require 'player'
-require 'board'
+require_relative '../lib/player'
+require_relative '../lib/board'
 
 player1 = Player.new
 player2 = Player.new
 game_board = Board.new
 
-def validate_position(my_board)
-  validated = false
-  until validated
-    puts 'Provide a valid position between 1 and 9 and not taken'
-    begin
-      pos = Integer(gets.chomp)
-    rescue StandardError
-      puts 'Provide a valid integer'
-      retry
-    end
-    validated = true if pos < 10 && my_board.get_position(pos) == ' '
-  end
-  pos
-end
+get_input = Proc.new {gets.chomp}
+
 
 def validate_name(_num)
   validated = false
@@ -61,7 +48,7 @@ puts game_board.display
 
 loop do
   puts "#{player1.name} please make your move :"
-  position = validate_position(game_board)
+  position = game_board.validate_position(game_board,&get_input)
   puts game_board.update_position(position, player1.token)
   if game_board.test_win(player1.token)
     puts "#{player1.name} WIN"
@@ -74,7 +61,7 @@ loop do
   end
 
   puts "#{player2.name} please make your move :"
-  position = validate_position(game_board)
+  position = game_board.validate_position(game_board,&get_input)
   puts game_board.update_position(position, player2.token)
   if game_board.test_win(player2.token)
     puts "#{player2.name} WIN"
