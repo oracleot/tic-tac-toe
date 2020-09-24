@@ -1,13 +1,7 @@
 #!/usr/bin/env ruby
+# rubocop:disable Metrics/MethodLength
 require_relative '../lib/player'
 require_relative '../lib/board'
-
-player1 = Player.new
-player2 = Player.new
-game_board = Board.new
-
-get_input = Proc.new {gets.chomp}
-
 
 def validate_name(_num)
   validated = false
@@ -18,53 +12,75 @@ def validate_name(_num)
   name.capitalize
 end
 
+def get_player_names(player1, player2)
+  puts 'Player 1 please enter name : '
+  player1.name = validate_name(1)
+  puts 'Player 2 please enter name : '
+  player2.name = validate_name(2)
+  player2.name = "#{player2.name}2" if player2.name == player1.name
+  puts "Welcome #{player1.name} and #{player2.name}"
+end
+
+def get_player_tokens(player1, player2)
+  puts "#{player1.name} please choose a token [ X or O ]"
+
+  token_invalid = true
+  while token_invalid
+    player1.token = gets.chomp.upcase
+    if player1.token == 'X' or player1.token == 'O'
+      token_invalid = false
+    else
+      puts 'Token should be X or O'
+    end
+    break if token_invalid == false
+  end
+
+  player2.token = player1.token == 'X' ? 'O' : 'X'
+
+  puts "Great! #{player1.name} takes #{player1.token} and #{player2.name} takes #{player2.token}"
+end
+
+def start_game(game_board)
+  puts "\nLet the game begin!!!"
+  puts game_board.display
+end
+
+def play_game(game_board, player1, player2)
+  get_input = proc { gets.chomp }
+  loop do
+    puts "#{player1.name} please make your move :"
+    position = game_board.validate_position(game_board, &get_input)
+    puts game_board.update_position(position, player1.token)
+    if game_board.test_win(player1.token)
+      puts "#{player1.name} WIN"
+      break
+    end
+
+    if game_board.tokens == 9
+      puts 'This game is a draw'
+      break
+    end
+
+    puts "#{player2.name} please make your move :"
+    position = game_board.validate_position(game_board, &get_input)
+    puts game_board.update_position(position, player2.token)
+    if game_board.test_win(player2.token)
+      puts "#{player2.name} WIN"
+      break
+    end
+  end
+end
+
 puts 'Welcome to the Tic-Tac_Toe game!'
-puts 'Player 1 please enter name : '
-player1.name = validate_name(1)
-puts 'Player 2 please enter name : '
-player2.name = validate_name(2)
-player2.name = "#{player2.name}2" if player2.name == player1.name
-puts "Welcome #{player1.name} and #{player2.name}"
 
-puts "#{player1.name} please choose a token [ X or O ]"
+player1 = Player.new
+player2 = Player.new
+get_player_names(player1, player2)
+get_player_tokens(player1, player2)
 
-token_invalid = true
-while token_invalid
-  player1.token = gets.chomp.upcase
-  if player1.token == 'X' or player1.token == 'O'
-    token_invalid = false
-  else
-    puts 'Token should be X or O'
-  end
-  break if token_invalid == false
-end
+game_board = Board.new
+start_game(game_board)
 
-player2.token = player1.token == 'X' ? 'O' : 'X'
+play_game(game_board, player1, player2)
 
-puts "Great! #{player1.name} takes #{player1.token} and #{player2.name} takes #{player2.token}"
-puts "\nLet the game begin!!!"
-
-puts game_board.display
-
-loop do
-  puts "#{player1.name} please make your move :"
-  position = game_board.validate_position(game_board,&get_input)
-  puts game_board.update_position(position, player1.token)
-  if game_board.test_win(player1.token)
-    puts "#{player1.name} WIN"
-    break
-  end
-
-  if game_board.tokens == 9
-    puts 'This game is a draw'
-    break
-  end
-
-  puts "#{player2.name} please make your move :"
-  position = game_board.validate_position(game_board,&get_input)
-  puts game_board.update_position(position, player2.token)
-  if game_board.test_win(player2.token)
-    puts "#{player2.name} WIN"
-    break
-  end
-end
+# rubocop:enable Metrics/MethodLength

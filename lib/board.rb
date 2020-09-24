@@ -20,7 +20,7 @@ class Board
     "
   end
 
-  def validate_position(my_board,&get_input)
+  def validate_position(my_board, &get_input)
     validated = false
     until validated
       puts 'Provide a valid position between 1 and 9 and not taken'
