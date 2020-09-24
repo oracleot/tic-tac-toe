@@ -37,7 +37,7 @@ cd tic-tac-toe
 - Run this command :
 
 ```bash
-ruby bin/main
+bin/main
 ```
 
 ## Authors
