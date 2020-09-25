@@ -1,36 +1,97 @@
 #!/usr/bin/env ruby
+require_relative '../lib/player'
+require_relative '../lib/board'
+
+def validate_name(_num)
+  validated = false
+  until validated
+    name = gets.chomp
+    validated = name.length > 2 ? true : (puts 'Please enter a valid name: ')
+  end
+  name.capitalize
+end
+
+def get_player_names(player1, player2)
+  puts 'Player 1 please enter name : '
+  player1.name = validate_name(1)
+  puts 'Player 2 please enter name : '
+  player2.name = validate_name(2)
+  player2.name = "#{player2.name}2" if player2.name == player1.name
+  puts "Welcome #{player1.name} and #{player2.name}"
+end
+
+def get_player_tokens(player1, player2)
+  puts "#{player1.name} please choose a token [ X or O ]"
+
+  token_invalid = true
+  while token_invalid
+    player1.token = gets.chomp.upcase
+    if player1.token == 'X' or player1.token == 'O'
+      token_invalid = false
+    else
+      puts 'Token should be X or O'
+    end
+    break if token_invalid == false
+  end
+
+  player2.token = player1.token == 'X' ? 'O' : 'X'
+
+  puts "Great! #{player1.name} takes #{player1.token} and #{player2.name} takes #{player2.token}"
+end
+
+def validate(my_board)
+  validated = false
+  until validated
+    puts 'Provide a valid position between 1 and 9 and not taken'
+    begin
+      pos = Integer(gets.chomp)
+    rescue StandardError
+      puts 'Provide a valid integer'
+      retry
+    end
+    validated = true if pos < 10 && my_board.get_position(pos) == ' '
+  end
+  pos
+end
+
+def start_game(game_board)
+  puts "\nLet the game begin!!!"
+  puts game_board.display
+end
+
+def play_game(game_board, player1, player2)
+  loop do
+    puts "#{player1.name} please make your move :"
+    position = validate(game_board)
+    puts game_board.update_position(position, player1.token)
+    if game_board.test_win(player1.token)
+      puts "#{player1.name} WINS"
+      break
+    end
+
+    if game_board.tokens == 9
+      puts 'This game is a DRAW'
+      break
+    end
+
+    puts "#{player2.name} please make your move :"
+    position = validate(game_board)
+    puts game_board.update_position(position, player2.token)
+    if game_board.test_win(player2.token)
+      puts "#{player2.name} WINS"
+      break
+    end
+  end
+end
+
 puts 'Welcome to the Tic-Tac_Toe game!'
-# Get Player1 name
-# puts 'Enter player 1 name'
-# player1 = gets.chomp
-# Get Player2 name
-# puts 'Enter player 2 name'
-# player2 = gets.chomp
-# Tell Player1 to choose
-# puts 'Please select X or O'
-# player1_choice = gets.chomp
-# Assign the available choice to Player2
-# player2_choice = player1_choice == 'X' ? 'O' : 'X'
-# Create a variable for all available positions
-# available_positions = (1..9)
-# Start a loop to check if game is on, then perform the following steps
-# game_on = true
-# while game_on
-# First, display an empty board to show players available positions
-# Ask Player1 for first move position
-# puts "#{player1} please indicate your desired move position"
-# Gets the position player has chosen and removes it from the possible positions for the next player
-# player1_position = gets.chomp.to_i
-# Checks if position is valid and updates the available positions
-# Display the game board with the updated position for Player2
-# Repeats same process for Player2
-# If any of the two players meet the 'WIN condition' (horizontal, vertical or diagonal alignment), display WIN
-# if WIN or DRAW
-# if WIN
-# Print the winning player
-# else
-# Print draw
-# end
-# game_on = false
-# end
-# end
+
+player1 = Player.new
+player2 = Player.new
+get_player_names(player1, player2)
+get_player_tokens(player1, player2)
+
+game_board = Board.new
+start_game(game_board)
+
+play_game(game_board, player1, player2)
