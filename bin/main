@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-# rubocop:disable Metrics/MethodLength
 require_relative '../lib/player'
 require_relative '../lib/board'
 
@@ -40,34 +39,46 @@ def get_player_tokens(player1, player2)
   puts "Great! #{player1.name} takes #{player1.token} and #{player2.name} takes #{player2.token}"
 end
 
+def validate(my_board)
+  validated = false
+  until validated
+    puts 'Provide a valid position between 1 and 9 and not taken'
+    begin
+      pos = Integer(gets.chomp)
+    rescue StandardError
+      puts 'Provide a valid integer'
+      retry
+    end
+    validated = true if pos < 10 && my_board.get_position(pos) == ' '
+  end
+  pos
+end
+
 def start_game(game_board)
   puts "\nLet the game begin!!!"
   puts game_board.display
 end
 
 def play_game(game_board, player1, player2)
-  get_input = proc { gets.chomp }
-  puts_provide = proc { puts 'Provide a valid position between 1 and 9 and not taken' }
-  puts_error = proc { puts 'Provide a valid integer' }
   loop do
     puts "#{player1.name} please make your move :"
-    position = game_board.validate_position(game_board, get_input, puts_provide, puts_error)
+    position = validate(game_board)
     puts game_board.update_position(position, player1.token)
     if game_board.test_win(player1.token)
-      puts "#{player1.name} WIN"
+      puts "#{player1.name} WINS"
       break
     end
 
     if game_board.tokens == 9
-      puts 'This game is a draw'
+      puts 'This game is a DRAW'
       break
     end
 
     puts "#{player2.name} please make your move :"
-    position = game_board.validate_position(game_board, get_input, puts_provide, puts_error)
+    position = validate(game_board)
     puts game_board.update_position(position, player2.token)
     if game_board.test_win(player2.token)
-      puts "#{player2.name} WIN"
+      puts "#{player2.name} WINS"
       break
     end
   end
@@ -84,5 +95,3 @@ game_board = Board.new
 start_game(game_board)
 
 play_game(game_board, player1, player2)
-
-# rubocop:enable Metrics/MethodLength

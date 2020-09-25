@@ -20,21 +20,6 @@ class Board
     "
   end
 
-  def validate_position(my_board, get_input, puts_provide, puts_error)
-    validated = false
-    until validated
-      puts_provide.call
-      begin
-        pos = Integer(get_input.call)
-      rescue StandardError
-        puts_error.call
-        retry
-      end
-      validated = true if pos < 10 && my_board.get_position(pos) == ' '
-    end
-    pos
-  end
-
   def get_position(val)
     current_position = @board[0][0] if val == 1
     current_position = @board[0][1] if val == 2
