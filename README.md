@@ -57,6 +57,19 @@ cd tic-tac-toe
 bin/main
 ```
 
+## Test
+
+1. Open a terminal
+2. Run 'gem install rspec'
+3. Run 'cd tic-tac-toe'
+4. Run rspec --init’ to install rspec in directory
+
+## Run
+
+1. Run 'rspec' in the terminal
+2. In the terminal, you should see if the tests pass or fail.
+![screenshot](./assets/Capture.PNG)
+
 ## Authors
 
 👤 Khalil Hamdi
@@ -68,6 +81,12 @@ bin/main
 👤 Damilola Oduronbi
 
 - Github: [@oracleot](https://github.com/oracleot)
+
+👤  **Ntwali Heritier**
+
+- Github: [@NtwaliHeritier](https://github.com/NtwaliHeritier)
+- Twitter: [@NtwaliHeritier](https://twitter.com/NtwaliHeritier)
+- Linkedin: [Ntwali Heritier](https://linkedin.com/in/ntwali-heritier-9950001a2)
 
 ## 🤝 Contributing
 
