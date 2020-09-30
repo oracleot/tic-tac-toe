@@ -1,9 +1,9 @@
-# rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
+# rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize,Layout/LineLength
 
 class Board
   attr_accessor :board
   attr_reader :tokens
-  def initialize(board = [[' ', ' ', ' '],[' ', ' ', ' '],[' ', ' ', ' ']])
+  def initialize(board = [[' ', ' ', ' '], [' ', ' ', ' '], [' ', ' ', ' ']])
     @board = board
     @tokens = 0
   end
@@ -62,4 +62,4 @@ class Board
   end
 end
 
-# rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize
+# rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/AbcSize,Layout/LineLength
