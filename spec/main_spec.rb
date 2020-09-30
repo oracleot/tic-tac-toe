@@ -17,7 +17,7 @@ describe Board do
     end
 
     it 'returns the wrong state of the board' do
-        expect(fresh_board.display).to_not eql(wrong_board_display)
+      expect(fresh_board.display).to_not eql(wrong_board_display)
     end
 
     it 'returns the current state of an updated board' do
@@ -25,8 +25,8 @@ describe Board do
     end
 
     it 'returns the current state of an updated board' do
-        expect(board_state_at_win.display).to_not eql(wrong_state_at_win_display)
-      end
+      expect(board_state_at_win.display).to_not eql(wrong_state_at_win_display)
+    end
   end
 
   describe '#get_position' do
