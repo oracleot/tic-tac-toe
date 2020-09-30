@@ -4,19 +4,29 @@ require_relative '../lib/player.rb'
 describe Board do
   let(:fresh_board) { Board.new }
   let(:fresh_board_display) { "  |   |  \n  |   |  \n  |   |  \n" }
+  let(:wrong_board_display) { "  | X |  \n  |   |  \n  |   |  \n" }
   let(:updated_board_at_3) { "  |   | X\n  |   |  \n  |   |  \n" }
   let(:updated_board_at_5) { "  |   |  \n  | O |  \n  |   |  \n" }
   let(:board_state_at_win) { Board.new([['X', ' ', ' '], %w[X O O], ['X', ' ', ' ']]) }
   let(:board_state_at_win_display) { "X |   |  \nX | O | O\nX |   |  \n" }
+  let(:wrong_state_at_win_display) { "  |   |  \nX | O | O\nX |   |  \n" }
 
   describe '#display' do
     it 'returns the current state of a new board' do
       expect(fresh_board.display).to eql(fresh_board_display)
     end
 
+    it 'returns the wrong state of the board' do
+        expect(fresh_board.display).to_not eql(wrong_board_display)
+    end
+
     it 'returns the current state of an updated board' do
       expect(board_state_at_win.display).to eql(board_state_at_win_display)
     end
+
+    it 'returns the current state of an updated board' do
+        expect(board_state_at_win.display).to_not eql(wrong_state_at_win_display)
+      end    
   end
 
   describe '#get_position' do
