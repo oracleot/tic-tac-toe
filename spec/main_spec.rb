@@ -26,12 +26,16 @@ describe Board do
 
     it 'returns the current state of an updated board' do
         expect(board_state_at_win.display).to_not eql(wrong_state_at_win_display)
-      end    
+      end
   end
 
   describe '#get_position' do
     it 'returns the current position of the board based on user input' do
       expect(fresh_board.get_position(2)).to eql(' ')
+    end
+
+    it 'returns the current position of the board based on user input' do
+      expect(fresh_board.get_position(2)).to_not eql('X')
     end
   end
 
@@ -43,6 +47,14 @@ describe Board do
     it 'returns the updated position of the board for val 5' do
       expect(fresh_board.update_position(5, 'O')).to eql(updated_board_at_5)
     end
+
+    it 'returns the updated position of the board for val 3' do
+      expect(fresh_board.update_position(3, 'X')).to_not eql(updated_board_at_5)
+    end
+
+    it 'returns the updated position of the board for val 5' do
+      expect(fresh_board.update_position(5, 'O')).to_not eql(updated_board_at_3)
+    end
   end
 
   describe '#test_win' do
@@ -51,7 +63,7 @@ describe Board do
     end
 
     it 'returns false if user does not token match win combinations' do
-      expect(board_state_at_win.test_win('O')).to be false
+      expect(board_state_at_win.test_win('O')).to_not be true
     end
   end
 end
